@@ -37,7 +37,6 @@
                <div class="panel-heading">
                 記事一覧
                </div>
-
                <div class="panel-body">
                    <table class="table table-striped task-table">
                        <thead>
@@ -63,7 +62,7 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                    </table>
+                    </table>      
                 </div>
             </div>
         @endif

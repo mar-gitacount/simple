@@ -38,7 +38,6 @@ class HomeController extends Controller
          * 個々のusertaleの情報が$userに入ってきている
         */
         $user = $request->user();
-        //dd($user); 
         /**
          * 
          * おそらくhomeurlにユーザー情報を流し込むイメージ
@@ -54,6 +53,8 @@ class HomeController extends Controller
          * with関数は配列型にしてデータをひとまとめにしている
          *  */
         //return view('home')->$user::with(['user'])->get();
+        $user->articles = $user->articles()->paginate(2);
+
         return view('home')->with(compact('user'));  
        
     }

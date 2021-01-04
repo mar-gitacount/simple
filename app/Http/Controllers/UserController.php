@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class UserController extends Controller
@@ -45,9 +46,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        /**
+         * $userによる投稿を取得
+         * 投稿作成日が新しい順に並べる。
+         * homeに返す。できるかわからないが、、
+         * articleのpagenateをユーザー自身のページを5ページ
+         * */ 
+        $user->articles = $user->articles()->paginate(5);
+        return view('users.show', ['user' => $user]);
+        
     }
 
     /**
@@ -81,13 +90,11 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
         /**
          * $requestで-userを持ってきて、deleteコマンドで削除する。
          *redirectでhomeに戻る。
          * 
-         * */
-       
+         * */     
         $user=$request->user();
         $user->delete();
         return redirect('/home');

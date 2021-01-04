@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Route;
 use App\Models\Voting;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Controllers\UserController;
@@ -19,14 +20,23 @@ use App\Http\Controllers\ArticleController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    /* Votingモデルを全て取得してトップページに表示する。 */
+/**
+ * '/'にアクセスしたらvotingsを表示する処理。
+  */
+ Route::get('/', function () { 
     $votings = Voting::all();
     return view('votings', ['votings' => $votings]);
-})/* ->middleware('auth') */;
+}); 
 /* ログインするとトップページにいくこれをつかってマイページいける処理を書く */
-
+/**
+ * votingページにarticleの全てのページを並べる。
+ * ルートゲットでarticleを持ってきて、投稿者と、投稿内容を表示する。
+ * ユーザーページのようにテーブルにして表示するようにする。
+ * コントローラを経由してコードを書く。
+ * foreachで表示して、ページビューも行うようにする。(10くらい)
+ * ここでvotingのarticleの処理をやはり書かないといけない。
+ */
+//Route::get('/',[App\Http\Controllers\ArticleController::class, 'index']);
 
 Route::post('/voting', function (Request $request) {
     /* 有効なデータが入っているかどうかを確認するためにvalidatorを使う */
@@ -57,7 +67,7 @@ Route::post('/voting', function (Request $request) {
 
 Route::delete('/voting/{voting}',function(Voting $voting){
     $voting->delete();
-    /* トップページに置く */
+    /*トップページに置く*/
     return redirect('/');
 });
 /** 
@@ -70,20 +80,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  * {}の中はコントローラの引数か
  */
 Route::delete('/home',[App\Http\Controllers\UserController::class, 'destroy'])->name('user_delete')->middleware('auth');
-/**
- * 下記テスト
- * 
-*/
-
 Auth::routes();
-/* getを使い第一引数で/homeに接続したとき第二引数ホームコントローラを呼びその中のindexクラスを使う 
-*indexクラスはユーザーのビューを返す
-*homeurlをよびだしてそこに
-*/
-/**
- * ユーザ記事を作成するページを作成する。
- * 1.記事createテーブルの作成
- * 2.まずは表示できるようにする。
- *  */
-Route::get('/article', [App\Http\Controllers\ArticleController::class, 'article'])->name('article')->middleware('auth');
+/* 第一引数のuriにarticle.blade.phpを入れている。*/
+Route::get('/article','App\Http\Controllers\ArticleController@article')->name('article');
+Route::post('/article',  [App\Http\Controllers\ArticleController::class, 'store'])->name('articlepost');
+
+
 

@@ -40,4 +40,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 一対多の処理を以下に書く
+     * ユーザーなので一側
+     * 
+    */
+
+    public function articles(){
+        /**
+         * リレーション一対多の関係
+         * user(1):article(多)
+         * articleテーブルを新しい順で更新する。
+         * 
+         * 
+           */
+        return $this->hasMany('App\Models\Article')->latest();
+    }
+
 }

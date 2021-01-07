@@ -6,6 +6,7 @@ use App\Models\Voting;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Controllers\VotingController;
 use App\Models\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
@@ -23,10 +24,16 @@ use App\Http\Controllers\ArticleController;
 /**
  * '/'にアクセスしたらvotingsを表示する処理。
   */
- Route::get('/', function () { 
+/*  Route::get('/', function () { 
     $votings = Voting::all();
     return view('votings', ['votings' => $votings]);
-}); 
+});  */
+
+/** 
+ * 処理の流れは、votingページとVotingControllerを紐づけして、articleを表示する事。紐づけしないが。
+ * name関数を利用してviewに渡す?
+  */
+Route::resource('/',VotingController::class);
 /* ログインするとトップページにいくこれをつかってマイページいける処理を書く */
 /**
  * votingページにarticleの全てのページを並べる。
@@ -81,9 +88,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  */
 Route::delete('/home',[App\Http\Controllers\UserController::class, 'destroy'])->name('user_delete')->middleware('auth');
 Auth::routes();
-/* 第一引数のuriにarticle.blade.phpを入れている。*/
+/** 
+ *  第一引数のuriにarticle.blade.phpを入れている。
+ * ここでarticleの各投稿ページのURLを生成する。
+ * */
 Route::get('/article','App\Http\Controllers\ArticleController@article')->name('article');
 Route::post('/article',  [App\Http\Controllers\ArticleController::class, 'store'])->name('articlepost');
 
+/**article/{id}に接続したとき、ArticleControllerのshowメソッドを呼び出す。{id}のブレードファイルに接続する。*/
+Route::get('/articleview/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('article_display');
 
 

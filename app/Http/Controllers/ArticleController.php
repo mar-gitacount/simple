@@ -20,51 +20,12 @@ class ArticleController extends Controller
 
     public function index()
     {
-      /**
-       * ここに'/'で接続された処理を書くarticleテーブルを呼び出す。
-       * 呼び出したarticleテーブルをvotings('/')のビューに表示する。
-       */
-        /**
-         * Aricle::selectでarticleカラム=各ユーザーの投稿内容をget();している。
-         * 
-         */
-        //$articles = Article::all();
-        $articles = Article::select('article')->get(); 
-        //dd($articles);
-        //$articles = $articles->where('article');
-        foreach ($articles as  $article){
-            $article = $article -> article;
-            //$article_user = $article -> user_id;
-            //$article_user_id = $article -> user_id;
-            //dd($article);
-            
-        }
-        //return;
-        //$articles = $articles->article;
-        //dd($articles);
-        //$articles = $articles->paginate(5);
-        /** 
-         * 全てのArticleを取得してvoting.blade.php側でarticleカラムを取得するがエラーが吐かれる。
-          */
-        //$articles = Article::all();
-        //$articles->article = $request->article;
-       // dd($articles);
-        /** 
-         * $articlesにはArticleテーブル内のarticleカラム一覧が配列で格納されている。
-         * articlesをddするとarticle一覧が表示される。
-         * このreturn　viewは'votings.blade.phpなのか'
-         */
-        $test = [
-            'hello'=>'テスト',
-        ];
-        return view('votings',$test);
-        //return view('votings', ['articles' => $articles]);
+      
     } 
     
 
     public function store(Request $request){
         $article = new Article();
-
         /** 
         * バリデーションを設定する。
         */
@@ -81,10 +42,24 @@ class ArticleController extends Controller
          * 以下はブレードファイルのarticleのnameを指定して値をとっている。
          * この処理はarticleの内容を保存している。
          * ->articleはカラム
+         * articleのidが表示される。
          */  
         $article->user_id = $request->user()->id;
+        /**
+         * 上記の$article->user_idはarticleのユーザーid格納カラム。
+         *articleのタイトルをテーブルから呼び出して$article->article_title 
+        */
         $article->article = $request->article;
-        $article->save();
+        /**articleが投稿された時点でidは発行されているのでそこに紐づけしたい。
+         * 例:
+         * "user_id" => 3
+         * "article" => "ｄｄ"
+         * "updated_at" => "2021-01-05 03:11:39"
+         * "created_at" => "2021-01-05 03:11:39"
+         * "id" => 34←これをURLにする。
+         * 
+        */  
+        $article->save();    
         return redirect(("/home"));
     }
 
@@ -98,6 +73,19 @@ class ArticleController extends Controller
          * articleの作成ページの処理。
          *  */  
         return view("article");
-    }    
+    } 
+    
+    public function show($id){
+        /** 
+         * return viewで投稿ページ/{投稿id}にする。
+         * articleshow.blade.phpを作る。
+        */
+        $article = Article::findOrFail($id);
+        /** 
+         * 以下でbladeファイルを呼び出す。
+         *returnview-withでarticle_idの情報を渡すブレードファイルはarticle_display.blade。 
+        */
+        return view('article_display')->with('article', $article);
+    }
 }
 

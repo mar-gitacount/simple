@@ -1,0 +1,137 @@
+ログに残す事
+リレーションについて
+画像投稿について
+
+
+2021/1/7にやること
+コード埋め込みのやつを調べて使えるようにする
+投稿内に画像の追加をできるようにする。
+画像の保存場所=storage/app/publicの下に保存する。
+jsでパス指定してリネームして保存する。
+画像投稿ボタンを作り、それをクリックしたらカーソルの位置を確認する処理テキストエリア内をクリックしたら位置座標を取得
+その数字を変数に代入する。
+画像名はphp側で日付とuser_idを指定したものを利用する。
+php側でtextarea内にimgの文言を渡してパス指定する。markdown方法を使って画像を表示する。![alt用テキスト](画像URL)　画像保存先はpublic内にする。
+画像のパスはDB上に存在しているはずなのでそれを参照する。
+if文でimgがあるかどうか分岐する。
+
+
+よく使うテーブルコマンド、、
+select * from users;
+sqlite3 database/database.sqlite
+DELETE FROM articles WHERE id=1;
+
+
+@foreach ($articles as $article)
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <a class="card-link" href="{route('show',['article' => $article])}">続きを読む</a>
+                        </div>
+                    </div>
+@endforeach 
+
+
+
+ userのidに紐づくArticleの投稿を持ってくる 
+       
+<ul>
+    <li>
+        
+    </li>
+</ul>
+
+    /* /* /* $user = Auth::id();
+  $articles = Article::where('user_id',$user)
+        ->orderBy('create_at','desc')
+        ->paginate(10);
+        return view('/home',['articles'=>$articles]); 
+
+
+    シーダーファイルの作成
+    シーダーファイルの編集
+    DatabaseSeeder.php 編集
+    シーダー実行
+    動作確認
+
+
+    @extends('layouts.app')
+@section('content')
+<div class="container">
+    <div class="col-sm-offset-2 col-sm-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                新しい記事
+            </div>
+            <div class="panel-body">
+                @include('common.errors')
+                <!-- 新しい投稿を作る -->
+                <form action="/voting" method="POST" class="form-horizontal">
+                    {{ csrf_field() }}
+                    <!-- 記事の名前 -->
+                    <div class="form-group">
+                        <label for="task-name" class="col-sm-3 control-label">記事</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="name" id="voting-name" class="form-control" value="{{ old('voting') }}">
+                        </div>
+                    </div>
+                    <!-- add voting -->
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-6">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fa fa-plus"></i>記事を追加する
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- 記事一覧 -->
+        @if (count($votings)>0)
+           <div class="panel-body">
+               <div class="panel-heading">
+                記事一覧
+               </div>
+               <div class="panel-body">
+                   <table class="table table-striped task-table">
+                       <thead>
+                           <th>記事</th>
+                           <th>&nbsp;</th>
+                        </thead>
+                       <tbody>
+                           <!-- ここの$votingsはルーティングの$votings?? -->
+                           @foreach ($votings as $voting)
+                              <tr>
+                                  <td class="table-text"><div class="table-text">{{ $voting->name }}</div></td>
+                            <!-- 記事削除 -->
+                                   <td>                                      
+                                       <form action="/voting/{{ $voting->id}}" method="POST">
+                                           {{ csrf_field() }}
+                                           {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fa fa-trash"></i>削除
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>      
+                </div>
+            </div>
+        @endif
+    </div>
+</div>
+@endsection
+
+まずは保存からする。
+storeAsメソッドの使い方
+
+storeAs(第一引数,第二引数);
+#第一引数はディレクトリを指定します。通常は'public'を指定することで、 
+ /storage/app/public/にファイルが保存されるようになります。
+#第二引数はファイル名を指定します。
+
+
+Route::get('/article', ArticleController@メソッド名);
+return view('article',);
+enctype=”multipart/form-data”は忘れずにform要素に設定をしてください。

@@ -24,7 +24,7 @@
                                 {{$user->name}}
                             </td>
                             <td>
-                                <!-- articleテーブルのarticleを表示する -->
+                                <!-- articleテーブルのarticletitleに変更 -->
                                
                                 {{$article->article}}
                             </td>
@@ -60,9 +60,8 @@
                     {{ __('ログインされています。') }}
                 </div>
             </div>
-        </div>
-        <div>{{$user->articles->links()}}</div>
+        </div>      
     </div>
-  
+    <div class="d-flex justify-content-center mb-5">{{$user->articles->links()}}</div>
 </div>
 @endsection

@@ -4,7 +4,7 @@
     <div class="col-sm-offset-2 col-sm-8">
         <div class="panel panel-default">
             <div class="panel-heading">
-                記事一覧
+                以下記事一覧
             </div>
     
         </div>
@@ -12,7 +12,7 @@
         @if (count($articles)>0)
            <div class="panel-body">
                <div class="panel-heading">
-                記事一覧
+                記事一覧だよ
                </div>
                <div class="panel-body">
                    <table class="table table-striped task-table">

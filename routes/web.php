@@ -86,14 +86,25 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 /**
  * {}の中はコントローラの引数か
  */
+Route::get('/home/user_manegement',[App\Http\Controllers\UserController::class,'index'])->name('user_manegemet');
+
+Route::post('/user_manegement',[App\Http\Controllers\UserController::class,'update'])->name('update');
+
 Route::delete('/home',[App\Http\Controllers\UserController::class, 'destroy'])->name('user_delete')->middleware('auth');
 Auth::routes();
 /** 
  *  第一引数のuriにarticle.blade.phpを入れている。
  * ここでarticleの各投稿ページのURLを生成する。
  * */
-Route::get('/article','App\Http\Controllers\ArticleController@article')->name('article');
-Route::post('/article',  [App\Http\Controllers\ArticleController::class, 'store'])->name('articlepost');
+Route::get('/home/article','App\Http\Controllers\ArticleController@article')->name('article')->middleware('auth');
+Route::post('/home/article',  [App\Http\Controllers\ArticleController::class, 'store'])->name('articlepost');
+
+Route::post('/article_update_page_show', [App\Http\Controllers\ArticleController::class, 'update'])->name('article_update');
+
+Route::get('/article_update_page_show/{id}',[App\Http\Controllers\ArticleController::class, 'article_update_page_show'])
+->name('article_update_page_show');
+Route::delete('/home/article','App\Http\Controllers\ArticleController@delete')->name('article_delete');
+
 
 /**article/{id}に接続したとき、ArticleControllerのshowメソッドを呼び出す。{id}のブレードファイルに接続する。*/
 Route::get('/articleview/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('article_display');

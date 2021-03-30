@@ -4,5 +4,6 @@
 @extends('layouts.app')
 @section('content')
 {{$article->article}}
-<h2>このページを作成したのは{{$article->user_id}}です。</h2>
+
+<h2>このページを作成したのは{{$articleUser->name}}です。</h2>
 @endsection

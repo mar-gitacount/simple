@@ -17,6 +17,7 @@ class UserController extends Controller
     public function index()
     {
         //
+	return view('user_manegement',['user' => Auth::user()]);
     }
 
     /**
@@ -77,9 +78,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+	$user_form = $request->all();
+        $user = $request->user();
+        //dd($user);
+        unset($user_form['_token']);
+        $user->fill($user_form)->save();
+        return redirect('/home');
     }
 
     /**

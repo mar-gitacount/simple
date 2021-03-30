@@ -12,7 +12,7 @@ class ArticleController extends Controller
     
     public function __construct() {
         /* articleに行くときは認証判定 */
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
     
     
@@ -31,7 +31,7 @@ class ArticleController extends Controller
         */
         $validator = Validator::make($request->all(), [
             /* 入力必須255文字 form のarticleのバリデーションチェック*/
-            'article' => 'required|max:255',
+            'article' => 'required|max:10000',
         ]);
         if ($validator->fails()) {
             return redirect('/article')
@@ -81,11 +81,57 @@ class ArticleController extends Controller
          * articleshow.blade.phpを作る。
         */
         $article = Article::findOrFail($id);
-        /** 
-         * 以下でbladeファイルを呼び出す。
-         *returnview-withでarticle_idの情報を渡すブレードファイルはarticle_display.blade。 
-        */
-        return view('article_display')->with('article', $article);
+	$articleUserResult = $article->user_id;
+        $articleUser = User::find($articleUserResult);
+        return view('article_display')->with('article', $article)->with( 'articleUser',$articleUser);
     }
+
+     public function article_update_page_show($id){
+        /** 
+         *
+         * 編集するためのページを表示、articleの値を呼び出してブレードファイルに吐き出すを呼び出す。 
+         * return でブレードファイルであるarticle_update_page_showを返す。
+        */
+        $article = Article::findOrFail($id);
+        //dd($article);
+        return view('article_update_page_show' ,['article' => $article]);
+        //return view('article_update_page_show')->with('article',$article);
+     }
+
+    public function update(Request $request){
+        
+        /** 
+         * 投稿内容を編集するためのコントローラー
+         * $article_form =  $request -> all();で更新した投稿内容を取得している。
+         * 元のarticle→$article = Article::find($request->id);
+        */
+        $article = Article::find($request->id);
+        //$article = $article -> article;
+        /**
+         * $article_formにはbladeファイルからpostで送られてきた　idが入っている。all(); 指定によって、、
+         *  
+         * */
+
+        //$article->fill($request->all())->save();
+        $article_form =  $request -> article;
+        $article -> article = $article_form;
+        $article ->save();
+        return redirect('home');
+        //dd($article_form);
+        //dd("元:".$article."\n"."新:".$article_form); 
+        //unset($article_form['_token']);
+        //unset($article_form['_id']);
+        //$article->fill($article_form)->save();
+        //dd($article);
+
+    } 
+    
+    public function delete(Request $request){
+        $article = Article::find($request -> id);
+        //dd($article);
+        $article->delete();
+        return redirect('/home');
+    }
+
 }
 

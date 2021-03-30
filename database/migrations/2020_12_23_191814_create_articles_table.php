@@ -18,17 +18,12 @@ class CreateArticlesTable extends Migration
             $table->string('article');
             $table->string('article_title');
             $table->timestamps();
-            /** 
-             * 以下articleテーブルから親テーブルの外部キーに接続する。
-             * 
-            */
-            $table->integer('user_id')->unsigned()->default();
-            $table->foreign('user_id') //外部キー制約
-            ->references('id')//userのidカラムを参照する?
-            ->on('users')//usersテーブルのidを参照する
-            ->onDelete('cascade');//ユーザーが削除されたら紐付くarticlesも削除 
-
-             
+            //$table->integer('user_id')->unsigned()->default();
+	    $table->unsignedBigInteger('user_id')->unsigned()->default();
+            $table->foreign('user_id') 
+            ->references('id') 
+	    ->on('users')
+	    ->onDelete('cascade');
 
         });
     }

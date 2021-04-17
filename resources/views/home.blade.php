@@ -10,6 +10,8 @@
             <div class="card" class="col-sm-offset-2 col-sm-8">
                 <div class="card-header">{{ __('Dashboard') }}</div>
                 <div class="card-body">{{ Auth::user()->name }}</div>
+		<div class="pic"><img src="public/storage/user_images/{{$user->user_prf}}" alt="プロフィール写真"></div>
+		<div class="pic"><img src="public/storage/test_images/icon_edit.png" alt="プロフィール写真"></div>
                 <div class="card-body">{{ Auth::user()->email }}</div>
                 <div class="card-body">{{ Auth::user()->id }}</div>
 		        <?php
@@ -30,12 +32,10 @@
                                 <!-- usernameを出力する -->
                                 {{$user->name}}
                             </td>
-                            <td>
-                                <div class="img">img</div>
-                            </td>
+                           
                             <td>
                                 <!-- articleテーブルのarticletitleに変更 -->                 
-				                   <?php
+				 <?php
                                         $articleresult = $article->article;
                                         $string_dot = "..";
                                         //articleの文字列を0～5まで指定して切り取り代入

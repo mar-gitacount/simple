@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+	    'user_prf' => ['image', 'mimes:jpeg,gif,png','max:2048']
         ]);
     }
 
@@ -64,10 +65,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+         //DBの全てのidを取得
+        // 画像名を取得する。
+        if(request()->file('user_prf')){
+            // dd(request()->file('user_prf'));
+            $user_prf=request()->file('user_prf')->getClientOriginalName();
+            // 以下で画像を保存する。
+            request()->file('user_prf')->storeAs('./public/user_images', $user_prf);
+        }else{
+            $user_prf = ('user_default.png');       
+        }
+
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+	    'user_prf' => $user_prf,
         ]);
+	return $user;
     }
 }

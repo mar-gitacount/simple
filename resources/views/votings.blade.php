@@ -12,7 +12,7 @@
         @if (count($articles)>0)
            <div class="panel-body">
                <div class="panel-heading">
-                記事一覧だよ
+                記事一覧
                </div>
                <div class="panel-body">
                    <table class="table table-striped task-table">

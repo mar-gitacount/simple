@@ -1,41 +1,35 @@
-
-
-
 @extends('layouts.app')
-
 @section('content')
+<link href="{{ asset('css/home.blade.css')}}" rel="stylesheet">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card" class="col-sm-offset-2 col-sm-8">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-                <div class="card-body">{{ Auth::user()->name }}</div>
-		<div class="pic"><img src="public/storage/user_images/{{$user->user_prf}}" alt="プロフィール写真"></div>
-		<div class="pic"><img src="public/storage/test_images/icon_edit.png" alt="プロフィール写真"></div>
-                <div class="card-body">{{ Auth::user()->email }}</div>
-                <div class="card-body">{{ Auth::user()->id }}</div>
-		        <?php
-                   $iptest = $_SERVER['REMOTE_ADDR'];
-		           echo "あなたのIPアドレスは". $iptest . "ですよ";
-                ?>
+                <div class="card-header">{{ __('マイページ') }}</div>
+                <div class="home_profile_wrap">
+                    <div class="row">
+                    <div class="col-4 home_pic"><img src="public/storage/user_images/{{$user->user_prf}}" alt=""></div>
+                    <div class="col-8 home_my_profile_info">
+                        <div class="home_name">{{ Auth::user()->name }}</div>                     
+                        <div class="mail">{{ Auth::user()->email }}</div>
+                        <div class="user_id">{{ Auth::user()->id }}</div>
+                    </div>
+                    </div>
+                </div>
                 <!-- ここにユーザーの記事一覧を表示する。 -->
                 <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th>{{ __('Author') }}</th>
-                        <th>{{ __('article') }}</th>
-                    </tr>
+                　　@if (count($user -> articles) > 0)
+                        <tr>
+                            <th>{{ __('あなたの投稿一覧') }}</th>
+                        </tr>
+                    @endif
                     <!-- ログイン中のユーザー=user その中のarticles -->
                     @foreach($user -> articles as $article)
                         <tr>
                             <td>
-                                <!-- usernameを出力する -->
-                                {{$user->name}}
-                            </td>
-                           
-                            <td>
                                 <!-- articleテーブルのarticletitleに変更 -->                 
-				 <?php
+				                    <?php
                                         $articleresult = $article->article;
                                         $string_dot = "..";
                                         //articleの文字列を0～5まで指定して切り取り代入
@@ -49,7 +43,6 @@
                                        @csrf           
                                        <input type="image" src="public/storage/icon_trash.png" class="icon-image">
                                     </form>
-                
                             </td>
                         </tr>
                     @endforeach
@@ -57,22 +50,17 @@
                 </table>
 
                 <a  href="{{ url('/') }}">
-                    <button type="submit" class="btn btn-light">みんなの記事一覧へ飛ぶ</button>
+                    <button type="submit" class="btn btn-light">おすすめ記事一覧へ飛ぶ</button>
                 </a>
                 <a href="{{route('article')}}"><button type="submit" class="btn btn-light">記事作成ページへ移動する。</button></a>
                 <a href="{{route('user_manegemet')}}"><button type="submit" class="btn btn-secondary active">ユーザー情報を編集、管理はこちら</button></a>
-                <!-- ユーザー情報を削除ボタン押したらtopに戻る。補足:できればパスワードを要求するusercontrolerを使うか?homeからできるならやる -->
-                <!-- 削除ボタンを作る -->
-                <!-- actionでurl指定している。ユーザーのidを表示できる-->
-                <!-- ボタンを押すと画面が遷移できるので処理はrouteは呼べているが、削除ができない。 -->
-                <!-- ここのuseridはコントローラのuseridを示している -->
-                <form action="{{ route('user_delete')}}" method="post" id="user_delete_form">
+                <!-- <form action="{{ route('user_delete')}}" method="post" id="user_delete_form">
                     @method('DELETE')
                     @csrf                
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Okボタンを押すとすべてのユーザー情報を削除してしまい、復活もできません。よろしいですか？')">
                     <i class="fa fa-trash">{{ __('ユーザー情報を削除する。(直ぐ消えます)') }}</i>       
                     </button>
-                </form>
+                </form> -->
                 <!--  -->
                 <div class="card-body">
                     @if (session('status'))

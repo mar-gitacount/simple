@@ -8,6 +8,7 @@
             <!-- actionでUser_ManegementControllerのupdateを使う。 -->
             <div class="card-body">
                 <form method="post" action="{{ route('update')}}">
+		    @csrf
                     <div class="form-group">
                         <label for="img">
                            画像

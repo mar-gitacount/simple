@@ -30,6 +30,7 @@
                         </thead>
                     　<tbody>
                         @foreach ($articles as $article)
+                        　　@csrf
                                 <tr>
                                 <!-- ここにurlの投稿一覧を表示する -->
                                 <!-- 以下にaタグをつかってとりあえずarticle_idをddできるようにする。

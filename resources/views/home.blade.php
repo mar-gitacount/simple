@@ -29,19 +29,19 @@
                         <tr>
                             <td>
                                 <!-- articleテーブルのarticletitleに変更 -->                 
-				                    <?php
+                                <?php
                                         $articleresult = $article->article;
                                         $string_dot = "..";
                                         //articleの文字列を0～5まで指定して切り取り代入
                                         $string_mb_substr = mb_substr($articleresult,0,10);
                                         $string_mb_substr = $string_mb_substr.$string_dot;
-                                    ?>
+                                ?>
                                     <a href = "{{ route('article_display', ['id' => $article->id])}}">{{$string_mb_substr}} </a><br>		                    <div class = "row">
                                     <a href="{{ route('article_update_page_show', ['id' => $article->id])}}"><img src="public/storage/icon_edit.png" class="icon-image"></a>
                                     <form action="{{ route('article_delete' , ['id' => $article->id])}}" method="post">
-                                       @method('DELETE')
-                                       @csrf           
-                                       <input type="image" src="public/storage/icon_trash.png" class="icon-image">
+                                    @method('DELETE')
+                                    @csrf           
+                                    <input type="image" src="public/storage/icon_trash.png" class="icon-image">
                                     </form>
                             </td>
                         </tr>

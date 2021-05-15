@@ -12,21 +12,21 @@
                     <button type="submit">アップロード</button>
                 </form>
                 <form action = "{{ route('articlepost')}}"  method="POST" class="form-horizontal">
-                   {{ csrf_field() }}
-                   <div class="form-group">                   
+                {{ csrf_field() }}
+                <div class="form-group">                   
                 　　   <!-- タイトル、本文 -->
                 　　    <div class="form-group">
-                           <div class="col-sm-6"> 
-                              <textarea rows="10" cols="100" name="article" name="contents" class= "form-control" id="message" style="resize:none"></textarea> 
-                           </div>
-                　　     </div>
-                         <div class="form-group">
+                        <div class="col-sm-6"> 
+                            <textarea rows="10" cols="100" name="article" name="contents" class= "form-control" id="message" style="resize:none"></textarea> 
+                        </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fa fa-plus"></i>記事を追加する
                                 </button>
                             </div>
-                         </div>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -48,7 +48,6 @@
             var textarea = document.getElementById('message');
             //textareaでカーソルの位置を取得している。
             var textarea = textarea.selectionStart;
-           
             //以下でファイル取得されたときの処理。idはfile
             $("#file").on("change",function(){
                 //ファイルオブジェクトを格納している。
@@ -60,7 +59,6 @@
                 const filename = file.name;
                 console.log(`選択された:${filename}`);
                 alert(textarea);
-           
                 /** 
                 *inner.htmlでimageタグをいれるfilenameもリネームする。
                 *  

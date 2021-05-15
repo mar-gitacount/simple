@@ -22,7 +22,7 @@ class HomeController extends Controller
      *  @return \Illuminate\Contracts\Support\Renderable
      * 
      */
-     /**
+    /**
       * requestメソッドだと呼びに行く。
        */  
     public function index(Request $request)
@@ -54,9 +54,7 @@ class HomeController extends Controller
          *  */
         //return view('home')->$user::with(['user'])->get();
         $user->articles = $user->articles()->paginate(2);
-
         return view('home')->with(compact('user'));  
-       
     }
 
 }

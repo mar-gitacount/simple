@@ -30,7 +30,7 @@ use App\Http\Controllers\ArticleController;
 });  */
 
 /** 
- * 処理の流れは、votingページとVotingControllerを紐づけして、articleを表示する事。紐づけしないが。
+ * 
  * name関数を利用してviewに渡す?
   */
 Route::resource('/',VotingController::class);
@@ -45,33 +45,23 @@ Route::resource('/',VotingController::class);
  */
 //Route::get('/',[App\Http\Controllers\ArticleController::class, 'index']);
 
-Route::post('/voting', function (Request $request) {
-    /* 有効なデータが入っているかどうかを確認するためにvalidatorを使う */
-    /* $requestから全てのデータを取得するその中のnameの属性に条件を指定する*/
-    $validator = Validator::make($request->all(), [
-        /* 入力必須255文字 form のnameパラメータを設定する*/
-        'name' => 'required|max:255',
-    ]);
+// Route::post('/voting', function (Request $request) {
+//     $validator = Validator::make($request->all(), [
+//         'name' => 'required|max:255',
+//     ]);
+//     if ($validator->fails()) {
+//         return redirect('/')
+//             ->withInput()
+//             ->withErrors($validator);    
+//     } 
+//     $voting = new Voting;
+//     $voting->name = $request->name;
+//     $voting->save();
+//     return redirect('/');
+// });
 
-    if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);    
-    }
-    
-    
-    /* votingモデルに新しいオブジェクトを追加する */
-    
-    $voting = new Voting;
-    /* votingモデルのtitleに$request->nameを格納する。 */
-    $voting->name = $request->name;
-    //saveメソッド
-    $voting->save();
-    /* トップページにリダイレクトして置く */
-    return redirect('/');
-});
-
-
+//検索結果を返すコントローラへのルーティング
+Route::post("/",'App\Http\Controllers\ArticleController@article_search')->name('search');
 Route::delete('/voting/{voting}',function(Voting $voting){
     $voting->delete();
     /*トップページに置く*/
@@ -104,8 +94,6 @@ Route::post('/article_update_page_show', [App\Http\Controllers\ArticleController
 Route::get('/article_update_page_show/{id}',[App\Http\Controllers\ArticleController::class, 'article_update_page_show'])
 ->name('article_update_page_show');
 Route::delete('/home/article','App\Http\Controllers\ArticleController@delete')->name('article_delete');
-
-
 /**article/{id}に接続したとき、ArticleControllerのshowメソッドを呼び出す。{id}のブレードファイルに接続する。*/
 Route::get('/articleview/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('article_display');
 

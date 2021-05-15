@@ -18,10 +18,9 @@ class VotingController extends Controller
         /** 
          * 新しい順で表示する。
          */
-        $articles = Article::select(['article','user_id','id'])->orderBy('created_at', 'desc')->get();    
-        return view('votings', [
-            'articles' => $articles
-            ]);
+        $articles = Article::select(['article','user_id','id'])->orderBy('created_at', 'desc')->get(); 
+        //dd($articles);   
+        return view('votings', ['articles' => $articles]);
     }
 
     /**

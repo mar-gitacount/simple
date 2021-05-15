@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Article;
+use Laravel\Ui\Presets\React;
+use App\developer_functions\Article_functions;
 class ArticleController extends Controller
 {
     
@@ -20,7 +22,6 @@ class ArticleController extends Controller
 
     public function index()
     {
-      
     } 
     
 
@@ -81,12 +82,13 @@ class ArticleController extends Controller
          * articleshow.blade.phpを作る。
         */
         $article = Article::findOrFail($id);
-	$articleUserResult = $article->user_id;
+        $articleUserResult = $article->user_id;
         $articleUser = User::find($articleUserResult);
+        //以下をuserid/user_make_article_blade.phpに変える。
         return view('article_display')->with('article', $article)->with( 'articleUser',$articleUser);
     }
 
-     public function article_update_page_show($id){
+    public function article_update_page_show($id){
         /** 
          *
          * 編集するためのページを表示、articleの値を呼び出してブレードファイルに吐き出すを呼び出す。 
@@ -96,33 +98,25 @@ class ArticleController extends Controller
         //dd($article);
         return view('article_update_page_show' ,['article' => $article]);
         //return view('article_update_page_show')->with('article',$article);
-     }
+    }
 
     public function update(Request $request){
-        
         /** 
          * 投稿内容を編集するためのコントローラー
          * $article_form =  $request -> all();で更新した投稿内容を取得している。
          * 元のarticle→$article = Article::find($request->id);
         */
         $article = Article::find($request->id);
-        //$article = $article -> article;
         /**
          * $article_formにはbladeファイルからpostで送られてきた　idが入っている。all(); 指定によって、、
          *  
          * */
-
-        //$article->fill($request->all())->save();
+        //以下でarticleカラムを更新している。これをarticleではなく、article_user_makeuser_fileに変える。
         $article_form =  $request -> article;
+        var_dump($article_form);
         $article -> article = $article_form;
         $article ->save();
         return redirect('home');
-        //dd($article_form);
-        //dd("元:".$article."\n"."新:".$article_form); 
-        //unset($article_form['_token']);
-        //unset($article_form['_id']);
-        //$article->fill($article_form)->save();
-        //dd($article);
 
     } 
     
@@ -133,5 +127,19 @@ class ArticleController extends Controller
         return redirect('/home');
     }
 
+
+    public function article_search(Request $request){
+        $input = $request->input;
+        //空文字が入ってきた時はトップにそのまま戻る。
+        if($input == null){
+            return redirect("/");
+        }
+        $article_query = Article::query();   
+        $articles = Article::select(['article'])->orderBy('created_at', 'desc')->get();
+        //呼び出したいテーブルとそのカラムを引数に渡す。
+        $articles = Article_functions::replace($input,$article_query);
+        return view('votings', ['articles' => $articles]);
+    }
+    
 }
 

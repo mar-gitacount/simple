@@ -95,7 +95,6 @@ class ArticleController extends Controller
          * return でブレードファイルであるarticle_update_page_showを返す。
         */
         $article = Article::findOrFail($id);
-        //dd($article);
         return view('article_update_page_show' ,['article' => $article]);
         //return view('article_update_page_show')->with('article',$article);
     }

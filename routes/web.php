@@ -61,7 +61,7 @@ Route::resource('/',VotingController::class);
 // });
 
 //検索結果を返すコントローラへのルーティング
-Route::post("/",'App\Http\Controllers\ArticleController@article_search')->name('search');
+Route::post("/search",'App\Http\Controllers\ArticleController@article_search')->name('search');
 Route::delete('/voting/{voting}',function(Voting $voting){
     $voting->delete();
     /*トップページに置く*/

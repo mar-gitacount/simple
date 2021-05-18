@@ -84,7 +84,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $articleUserResult = $article->user_id;
         $articleUser = User::find($articleUserResult);
-        //以下をuserid/user_make_article_blade.phpに変える。
+        //以下をuser_articles/user_id/user_id_YYYY_MMMM.blade.phpに変更する。ブレードファイルの文言はDBに保存する。ディレクトリはarticleUserResultを利用する。
         return view('article_display')->with('article', $article)->with( 'articleUser',$articleUser);
     }
 

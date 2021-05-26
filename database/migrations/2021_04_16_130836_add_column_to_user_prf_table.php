@@ -15,8 +15,7 @@ class AddColumnToUserPrfTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-	    $table->string('user_prf')->default('user_default.png')->after('name');
-
+            $table->string('user_prf')->default('user_default.png')->after('name');
         });
     }
 
@@ -29,7 +28,7 @@ class AddColumnToUserPrfTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-	    $table->dropColumn('user_prf');
+            $table->dropColumn('user_prf');
         });
     }
 }

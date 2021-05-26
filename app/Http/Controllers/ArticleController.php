@@ -35,7 +35,7 @@ class ArticleController extends Controller
         $validator = Validator::make($request->all(), [
             /* 入力必須255文字 form のarticleのバリデーションチェック*/
             'article' => 'required|max:100',
-            'article_text' => 'required|min:1'
+            //'article_text' => 'required|min:1'
         ]);
         if ($validator->fails()) {
             return redirect('/home/article')
@@ -61,9 +61,9 @@ class ArticleController extends Controller
         $blade_file_name = $blade_file_name.".blade.php";
         /* ファイル作成 */
         /* ディレクトリ作成 */
-        Storage::makeDirectory('./public/user_articles/'.$article->user_id);
+    /*  Storage::makeDirectory('./public/user_articles/'.$article->user_id);
         Storage::put($blade_file_name, $blade_text);
-        Storage::move($blade_file_name, './public/user_articles/'.$article->user_id.'/'.$blade_file_name);
+        Storage::move($blade_file_name, './public/user_articles/'.$article->user_id.'/'.$blade_file_name); */
         /* 投稿タイトルをarticleカラムに保存する */
         $article->article = $request->article;
         /**

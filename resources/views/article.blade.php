@@ -7,18 +7,21 @@
             <div class="panel-body">
                 @include('common.errors')
                 <form action="post">
+                    @csrf
                     <label for="task-name" class="col-sm-3 control-label">記事を以下に書く</label>
                     <input type="file" accept=".jpg,.jpeg,.png,.gif" value="初期値"  id="file" name ="file" class="form-control">
                     <button type="submit">アップロード</button>
                 </form>
                 <form action = "{{ route('articlepost')}}"  method="POST" class="form-horizontal">
-                {{ csrf_field() }}
-                <div class="form-group">                   
-                　　   <!-- タイトル、本文 -->
-                　　    <div class="form-group">
-                        <div class="col-sm-6"> 
-                            <textarea rows="10" cols="100" name="article" name="contents" class= "form-control" id="message" style="resize:none"></textarea> 
-                        </div>
+                    {{ csrf_field() }}
+                    <div class="form-group">                   
+                        <!-- タイトル、本文 -->
+                        <div class="form-group">
+                            <div class="col-sm-6"> 
+                                {{--  <textarea rows="200" cols="100" name="article" name="contents" class= "form-control" id="message" style="resize:none"></textarea>  --}}
+                                <textarea class="form-control" rows="5" cols="100" name="article" name="contents" id="message" style="resize:none"></textarea>
+                                <textarea class="form-control"  rows="10" cols="30" name="article_text" name="contents" id="text" ></textarea>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">

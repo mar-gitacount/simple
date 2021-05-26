@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Article;
 use Laravel\Ui\Presets\React;
 use App\developer_functions\Article_functions;
+
+use Illuminate\Support\Facades\Storage;
+
 class ArticleController extends Controller
 {
     
@@ -19,23 +22,23 @@ class ArticleController extends Controller
     
     
     
-
     public function index()
     {
     } 
     
-
     public function store(Request $request){
+        /* 新しく記事を投稿する宣言 */
         $article = new Article();
         /** 
         * バリデーションを設定する。
         */
         $validator = Validator::make($request->all(), [
             /* 入力必須255文字 form のarticleのバリデーションチェック*/
-            'article' => 'required|max:10000',
+            'article' => 'required|max:100',
+            'article_text' => 'required|min:1'
         ]);
         if ($validator->fails()) {
-            return redirect('/article')
+            return redirect('/home/article')
                 ->withInput()
                 ->withErrors($validator);    
         }
@@ -44,28 +47,45 @@ class ArticleController extends Controller
          * この処理はarticleの内容を保存している。
          * ->articleはカラム
          * articleのidが表示される。
-         */  
+         */ 
+        
         $article->user_id = $request->user()->id;
-        /**
-         * 上記の$article->user_idはarticleのユーザーid格納カラム。
-         *articleのタイトルをテーブルから呼び出して$article->article_title 
-        */
+        $blade_text = $request->article_text;
+        $past_articles = $request->user()->articles->first();
+        if(!$past_articles == null){
+            $past_articles = $past_articles->id;
+            $blade_file_name = $past_articles+1;
+        }else{
+            $blade_file_name = 0;
+        }
+        $blade_file_name = $blade_file_name.".blade.php";
+        /* ファイル作成 */
+        /* ディレクトリ作成 */
+        Storage::makeDirectory('./public/user_articles/'.$article->user_id);
+        Storage::put($blade_file_name, $blade_text);
+        Storage::move($blade_file_name, './public/user_articles/'.$article->user_id.'/'.$blade_file_name);
+        /* 投稿タイトルをarticleカラムに保存する */
         $article->article = $request->article;
-        /**articleが投稿された時点でidは発行されているのでそこに紐づけしたい。
+        /**
+         * ブレードファイルの修正後試してみる
+         * $create_time = Article_functions::timezone_ja();
+         * $article->created_at = $create_time;
+        */
+        //$article->created_at = $create_time;
+        /*curl -X POST https://api.github.com/markdown/raw -H 'Content-Type: text/plain' -d '## Hello World' > user_id_yymmdd.html  */
+        /**
          * 例:
          * "user_id" => 3
-         * "article" => "ｄｄ"
+         * "article" => "title"
+         * "article_text" => 本文
          * "updated_at" => "2021-01-05 03:11:39"
          * "created_at" => "2021-01-05 03:11:39"
          * "id" => 34←これをURLにする。
          * 
-        */  
+        */
         $article->save();    
         return redirect(("/home"));
     }
-
-
-
     public function article(){
         /**
          * 以下でarticle.blade.phpを表示している。
@@ -87,7 +107,6 @@ class ArticleController extends Controller
         //以下をuser_articles/user_id/user_id_YYYY_MMMM.blade.phpに変更する。ブレードファイルの文言はDBに保存する。ディレクトリはarticleUserResultを利用する。
         return view('article_display')->with('article', $article)->with( 'articleUser',$articleUser);
     }
-
     public function article_update_page_show($id){
         /** 
          *
@@ -96,9 +115,7 @@ class ArticleController extends Controller
         */
         $article = Article::findOrFail($id);
         return view('article_update_page_show' ,['article' => $article]);
-        //return view('article_update_page_show')->with('article',$article);
     }
-
     public function update(Request $request){
         /** 
          * 投稿内容を編集するためのコントローラー
@@ -110,23 +127,18 @@ class ArticleController extends Controller
          * $article_formにはbladeファイルからpostで送られてきた　idが入っている。all(); 指定によって、、
          *  
          * */
-        //以下でarticleカラムを更新している。これをarticleではなく、article_user_makeuser_fileに変える。
         $article_form =  $request -> article;
-        var_dump($article_form);
+        /*  $create_time = Article_functions::timezone_ja();
+        $article -> created_at = $create_time; */
         $article -> article = $article_form;
         $article ->save();
         return redirect('home');
-
-    } 
-    
+    }
     public function delete(Request $request){
         $article = Article::find($request -> id);
-        //dd($article);
         $article->delete();
         return redirect('/home');
     }
-
-
     public function article_search(Request $request){
         $input = $request->input;
         //空文字が入ってきた時はトップにそのまま戻る。

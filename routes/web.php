@@ -91,8 +91,8 @@ Route::post('/home/article',  [App\Http\Controllers\ArticleController::class, 's
 
 Route::post('/article_update_page_show', [App\Http\Controllers\ArticleController::class, 'update'])->name('article_update');
 
-Route::get('/article_update_page_show/{id}',[App\Http\Controllers\ArticleController::class, 'article_update_page_show'])
-->name('article_update_page_show');
+Route::get('/home/article_update_page_show/{id}',[App\Http\Controllers\ArticleController::class, 'article_update_page_show'])
+->name('article_update_page_show')->middleware('auth');
 Route::delete('/home/article','App\Http\Controllers\ArticleController@delete')->name('article_delete');
 /**article/{id}に接続したとき、ArticleControllerのshowメソッドを呼び出す。{id}のブレードファイルに接続する。*/
 Route::get('/articleview/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('article_display');

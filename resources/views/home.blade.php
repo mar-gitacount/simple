@@ -48,7 +48,6 @@
                     @endforeach
                 </thead>
                 </table>
-
                 <a  href="{{ url('/') }}">
                     <button type="submit" class="btn btn-light">おすすめ記事一覧へ飛ぶ</button>
                 </a>

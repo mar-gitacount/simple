@@ -25,18 +25,25 @@
     $article_id = (string) $article -> id;
     $article_make_time_create = $article -> created_at;
     //$article_make_time_update = $article -> updated_at;
-    $display_file = 'user_view.'.$user_id.".".$article_id;
-?>
+    //$display_file = 'user_articles.'.$user_id.".".$article_id;
+    //$display_file = 'asset('/storage/user_articles/test/test.php');
+    ?>
 <article class="article">
     <!-- 記事タイトル-->
     <h1>{{$article_title}}</h1>
     <!-- 記事の本文 -->
     {{-- @include($display_file) --}}
+    <?php
+    $path = storage_path('app/public/test.php');
+    //$path2 = $path = app_path();
+    dump($path);
+    //dump($path2);
+    ?>
 </article>
 <div class="user_status">
-<div class="article_make_user">このページ作成の作成者:{{$articleUser->name}}</div>
-<div>作成{{$article->created_at}}</div>
-<div>修正{{$article->updated_at}}</div>
+    <div class="article_make_user">このページ作成の作成者:{{$articleUser->name}}</div>
+    <div>作成{{$article->created_at}}</div>
+    <div>修正{{$article->updated_at}}</div>
 </div>
 </body>
 </html>

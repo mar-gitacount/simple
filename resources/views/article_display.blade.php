@@ -33,16 +33,13 @@
     <h1>{{$article_title}}</h1>
     <!-- 記事の本文 -->
     {{-- @include($display_file) --}}
-    <?php
-    $path = storage_path('app/public/test.php');
-    if (file_exists($path)) {
-        echo "$path が存在します";
-    } else {
-        echo '本文が存在しません,お手数ですが、以下のメールアドレスにて管理者に問い合わせてください'."\n".'ichikaw';
-        return;
-    }
-    include $path;
-    ?>
+    <?php $path = storage_path('app/public/test.php'); ?>
+    <?php if(!file_exists($path)):?>
+    <p>何かありましたら以下のメールアドレスにて管理者に問い合わせてください。</p>
+    <p><a class="contact-link" href="mailto:ichikawa.contact@gmail.com" target="_blank">ichikawa.contact@gmail.com</a></p>
+    <?php return; ?>
+    <?php endif; ?>
+    <?php include $path; ?>
 </article>
 <div class="user_status">
     <div class="article_make_user">このページ作成の作成者:{{$articleUser->name}}</div>

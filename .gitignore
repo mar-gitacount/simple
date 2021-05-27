@@ -14,3 +14,4 @@ yarn-error.log
 user情報.html
 composer.phar
 composer.lock
+routes/app/

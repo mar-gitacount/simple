@@ -8,9 +8,8 @@ use App\Models\User;
 use App\Models\Article;
 use Laravel\Ui\Presets\React;
 use App\developer_functions\Article_functions;
-
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\View;
 class ArticleController extends Controller
 {
     
@@ -61,9 +60,9 @@ class ArticleController extends Controller
         $blade_file_name = $blade_file_name.".blade.php";
         /* ファイル作成 */
         /* ディレクトリ作成 */
-    /*  Storage::makeDirectory('./public/user_articles/'.$article->user_id);
-        Storage::put($blade_file_name, $blade_text);
-        Storage::move($blade_file_name, './public/user_articles/'.$article->user_id.'/'.$blade_file_name); */
+        //View::makeDirectory('./public/user_articles/'.$article->user_id);
+    /*  Storage::put($blade_file_name, $blade_text);
+        Storage::move($blade_file_name, './public/user_articles/'.$article->user_id.'/'.$blade_file_name); */ 
         /* 投稿タイトルをarticleカラムに保存する */
         $article->article = $request->article;
         /**
@@ -89,23 +88,21 @@ class ArticleController extends Controller
     public function article(){
         /**
          * 以下でarticle.blade.phpを表示している。
-         * blade.phpを表示するという意味なのかblade.phpに表示するという意味なのか、、おそらく前者
-         * 追加などの処理をブレードファイル内に書き加える。
          * articleの作成ページの処理。
          *  */  
         return view("article");
     } 
     
     public function show($id){
-        /** 
-         * return viewで投稿ページ/{投稿id}にする。
-         * articleshow.blade.phpを作る。
-        */
         $article = Article::findOrFail($id);
         $articleUserResult = $article->user_id;
         $articleUser = User::find($articleUserResult);
         //以下をuser_articles/user_id/user_id_YYYY_MMMM.blade.phpに変更する。ブレードファイルの文言はDBに保存する。ディレクトリはarticleUserResultを利用する。
-        return view('article_display')->with('article', $article)->with( 'articleUser',$articleUser);
+        //return view('article_display')->with('article', $article)->with( 'articleUser',$articleUser);
+        return view('article_display')->with([
+            'article' => $article,
+            'articleUser' => $articleUser,
+        ]);
     }
     public function article_update_page_show($id){
         /** 
@@ -123,12 +120,25 @@ class ArticleController extends Controller
          * 元のarticle→$article = Article::find($request->id);
         */
         $article = Article::find($request->id);
+        $article_id = $article->id;
+        //dump($article_id);
+        //dump($article);
+        $validator = Validator::make($request->all(), [
+            'article' => 'required|max:100',
+            //'article_text' => 'required|min:1'
+        ]);
+        if ($validator->fails()) {
+            return redirect('home/article_update_page_show/'.$article_id)
+                ->withInput()
+                ->withErrors($validator);    
+        }
+
         /**
          * $article_formにはbladeファイルからpostで送られてきた　idが入っている。all(); 指定によって、、
          *  
          * */
         $article_form =  $request -> article;
-        /*  $create_time = Article_functions::timezone_ja();
+        /* $create_time = Article_functions::timezone_ja();
         $article -> created_at = $create_time; */
         $article -> article = $article_form;
         $article ->save();
@@ -137,7 +147,7 @@ class ArticleController extends Controller
     public function delete(Request $request){
         $article = Article::find($request -> id);
         $article->delete();
-        return redirect('/home');
+        return redirect('home');
     }
     public function article_search(Request $request){
         $input = $request->input;

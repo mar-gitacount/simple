@@ -46,8 +46,7 @@ class ArticleController extends Controller
          * この処理はarticleの内容を保存している。
          * ->articleはカラム
          * articleのidが表示される。
-         */ 
-        
+         */     
         $article->user_id = $request->user()->id;
         $blade_text = $request->article_text;
         $past_articles = $request->user()->articles->first();
@@ -121,8 +120,6 @@ class ArticleController extends Controller
         */
         $article = Article::find($request->id);
         $article_id = $article->id;
-        //dump($article_id);
-        //dump($article);
         $validator = Validator::make($request->all(), [
             'article' => 'required|max:100',
             //'article_text' => 'required|min:1'
@@ -132,7 +129,6 @@ class ArticleController extends Controller
                 ->withInput()
                 ->withErrors($validator);    
         }
-
         /**
          * $article_formにはbladeファイルからpostで送られてきた　idが入っている。all(); 指定によって、、
          *  

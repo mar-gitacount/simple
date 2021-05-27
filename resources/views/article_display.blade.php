@@ -35,9 +35,13 @@
     {{-- @include($display_file) --}}
     <?php
     $path = storage_path('app/public/test.php');
-    //$path2 = $path = app_path();
-    dump($path);
-    //dump($path2);
+    if (file_exists($path)) {
+        echo "$path が存在します";
+    } else {
+        echo '本文が存在しません,お手数ですが、以下のメールアドレスにて管理者に問い合わせてください'."\n".'ichikaw';
+        return;
+    }
+    include $path;
     ?>
 </article>
 <div class="user_status">
@@ -47,3 +51,4 @@
 </div>
 </body>
 </html>
+home/simplemedia/neomediaproject/storage/app/public

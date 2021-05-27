@@ -56,7 +56,7 @@ class ArticleController extends Controller
         }else{
             $blade_file_name = 0;
         }
-        $blade_file_name = $blade_file_name.".blade.php";
+        $blade_file_name = $blade_file_name.".php";
         /* ファイル作成 */
         /* ディレクトリ作成 */
         //View::makeDirectory('./public/user_articles/'.$article->user_id);

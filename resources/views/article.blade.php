@@ -20,7 +20,8 @@
                             <div class="col-sm-6"> 
                                 {{--  <textarea rows="200" cols="100" name="article" name="contents" class= "form-control" id="message" style="resize:none"></textarea>  --}}
                                 <textarea class="form-control" rows="5" cols="100" name="article" name="contents" id="message" style="resize:none"></textarea>
-{{--                                 <textarea class="form-control"  rows="10" cols="30" name="article_text" name="contents" id="text" ></textarea>--}}                            </div>
+                                <textarea class="form-control"  rows="10" cols="30" name="article_text" name="contents" id="text" ></textarea>                         
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">

@@ -29,10 +29,6 @@ use App\Http\Controllers\ArticleController;
     return view('votings', ['votings' => $votings]);
 });  */
 
-/** 
- * 
- * name関数を利用してviewに渡す?
-  */
 Route::resource('/',VotingController::class);
 /* ログインするとトップページにいくこれをつかってマイページいける処理を書く */
 /**
@@ -60,8 +56,9 @@ Route::resource('/',VotingController::class);
 //     return redirect('/');
 // });
 
-//検索結果を返すコントローラへのルーティング
-Route::post("/search",'App\Http\Controllers\ArticleController@article_search')->name('search');
+
+//ページネーションのルーティング
+
 Route::delete('/voting/{voting}',function(Voting $voting){
     $voting->delete();
     /*トップページに置く*/
@@ -97,4 +94,6 @@ Route::delete('/home/article','App\Http\Controllers\ArticleController@delete')->
 /**article/{id}に接続したとき、ArticleControllerのshowメソッドを呼び出す。{id}のブレードファイルに接続する。*/
 Route::get('/articleview/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('article_display');
 
+//検索結果を返すコントローラへのルーティング
+Route::get("/search",'App\Http\Controllers\ArticleController@article_search')->name('search');
 

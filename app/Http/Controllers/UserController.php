@@ -56,7 +56,8 @@ class UserController extends Controller
          * articleのpagenateをユーザー自身のページを5ページ
          * */ 
         $user->articles = $user->articles()->paginate(5);
-        return view('users.show', ['user' => $user]);
+        dd($user);
+        return view('/votings', ['user' => $user]);
         
     }
 

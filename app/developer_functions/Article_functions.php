@@ -15,7 +15,7 @@ class Article_functions{
     }
     // 検索機能の関数
     public static function replace($input,$quary){
-        $quary = $quary -> where('article', 'LIKE' ,"%{$input}%")->orderBy('created_at', 'desc')->get();
+        $quary = $quary -> where('article', 'LIKE' ,"%{$input}%")->orderBy('created_at', 'desc');
         return $quary;
     }
 }

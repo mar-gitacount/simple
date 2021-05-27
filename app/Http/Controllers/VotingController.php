@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 class VotingController extends Controller
 {
     /**
@@ -12,14 +13,15 @@ class VotingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
         
         /** 
          * 新しい順で表示する。
          */
-        $articles = Article::select(['article','user_id','id'])->orderBy('created_at', 'desc')->get(); 
-        //dd($articles);   
+        //$articles = Article::select(['article','user_id','id'])->orderBy('created_at', 'desc')->get();
+        $articles = DB::table('articles')->orderBy('created_at', 'desc')->paginate(10);
+        //dd($articles);
         return view('votings', ['articles' => $articles]);
     }
 

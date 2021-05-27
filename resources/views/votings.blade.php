@@ -20,7 +20,7 @@
                         <th>記事</th>
                         <th>&nbsp;</th>
                         <th>
-                        <form method="POST" action="{{ route ('search')}}">
+                        <form method="get" action="{{ route ('search')}}">
                         {{ csrf_field() }}
                         <input type="text" name="input" value="">
                         <input type="submit" value="検索">
@@ -64,5 +64,6 @@
         @endif     
     </div>
     {{-- ページネーション --}}
+    {{$articles->appends(request()->input())->links() }} 
 </div>
 @endsection

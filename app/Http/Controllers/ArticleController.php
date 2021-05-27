@@ -129,10 +129,6 @@ class ArticleController extends Controller
                 ->withInput()
                 ->withErrors($validator);    
         }
-        /**
-         * $article_formにはbladeファイルからpostで送られてきた　idが入っている。all(); 指定によって、、
-         *  
-         * */
         $article_form =  $request -> article;
         /* $create_time = Article_functions::timezone_ja();
         $article -> created_at = $create_time; */
@@ -151,10 +147,10 @@ class ArticleController extends Controller
         if($input == null){
             return redirect("/");
         }
-        $article_query = Article::query();   
-        $articles = Article::select(['article'])->orderBy('created_at', 'desc')->get();
+        $article_query = Article::query();
+        $articles = Article::select(['article'])->get();
         //呼び出したいテーブルとそのカラムを引数に渡す。
-        $articles = Article_functions::replace($input,$article_query);
+        $articles = Article_functions::replace($input,$article_query)->paginate(2);
         return view('votings', ['articles' => $articles]);
     }
     

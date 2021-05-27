@@ -53,7 +53,7 @@ class HomeController extends Controller
          * with関数は配列型にしてデータをひとまとめにしている
          *  */
         //return view('home')->$user::with(['user'])->get();
-        $user->articles = $user->articles()->paginate(2);
+        $user->articles = $user->articles()->paginate(5);
         return view('home')->with(compact('user'));  
     }
 

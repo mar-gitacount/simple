@@ -48,4 +48,3 @@
 </div>
 </body>
 </html>
-home/simplemedia/neomediaproject/storage/app/public

@@ -64,6 +64,6 @@
         @endif     
     </div>
     {{-- ページネーション --}}
-    {{$articles->appends(request()->input())->links() }} 
+    {{$articles->appends(request()->input())->links('pagination::simple-bootstrap-4') }}
 </div>
 @endsection

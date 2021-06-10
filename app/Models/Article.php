@@ -26,10 +26,4 @@ class Article extends Model
     public function voting(){
         return $this->belongsTo('App\models\Voting');
     }
-
 }
-
-
-
-
- 

@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link rel="shortcut icon" href="{{ asset('/storage/sibadog16.ico') }}" > --}}
     @yield('css')
 </head>
 <body>

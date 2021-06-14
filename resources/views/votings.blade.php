@@ -14,6 +14,16 @@
             <div class="panel-heading">
                 記事一覧
             </div>
+            @inject('gunle', 'App\developer_functions\Article_functions')
+            <div class="panel-heading">
+                <div class="gunle_wrap">
+                    {{-- ジャンル事に表示する --}}
+                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 0])}}">{{$gunle -> gunle(0)}}</a></div>
+                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(1)}}</a></div>
+                    <div class=""><a>{{$gunle -> gunle(2)}}</a></div>
+                    <div class=""><a>{{$gunle -> gunle(3)}}</a></div>
+                </div>
+            </div>
             <div class="panel-body">
                 <table class="table table-striped task-table">
                         <thead>
@@ -28,7 +38,7 @@
                         </th>
                         <th>&nbsp;</th>
                         </thead>
-                    　<tbody>
+                        <tbody>
                         @foreach ($articles as $article)
                         　　@csrf
                                 <tr>
@@ -57,7 +67,7 @@
                                 <td class="table-text"><div class="table-text">{{ $article->id }}</div></td>
                             　  </tr>
                             @endforeach
-                    　</tbody>
+                        </tbody>
                     </table>      
                 </div>
             </div>

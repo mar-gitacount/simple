@@ -153,6 +153,10 @@ class ArticleController extends Controller
         $articles = Article_functions::replace($input,$article_query)->paginate(2);
         return view('votings', ['articles' => $articles]);
     }
+    public function article_gunle_page_show(Request $request){
+        $gunle = $request -> gunle_num;
+        return view("make");
+    }
     
 }
 

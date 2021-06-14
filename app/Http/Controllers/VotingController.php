@@ -21,7 +21,6 @@ class VotingController extends Controller
          */
         //$articles = Article::select(['article','user_id','id'])->orderBy('created_at', 'desc')->get();
         $articles = DB::table('articles')->orderBy('created_at', 'desc')->paginate(10);
-        //dd($articles);
         return view('votings', ['articles' => $articles]);
     }
 

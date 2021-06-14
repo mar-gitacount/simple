@@ -97,3 +97,4 @@ Route::get('/articleview/{id}', [App\Http\Controllers\ArticleController::class, 
 //検索結果を返すコントローラへのルーティング
 Route::get("/search",'App\Http\Controllers\ArticleController@article_search')->name('search');
 
+Route::get("/gunle/{gunle_num}",'App\Http\Controllers\ArticleController@article_gunle_page_show')->name('gunle');

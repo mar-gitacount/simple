@@ -18,5 +18,10 @@ class Article_functions{
         $quary = $quary -> where('article', 'LIKE' ,"%{$input}%")->orderBy('created_at', 'desc');
         return $quary;
     }
+    //ジャンル一覧
+    public function gunle($num){
+        $nowgunle = array("ゲーム,漫画","おもしろ","ニュース","IT・テクノロジー");
+        return $nowgunle[$num];
+    }
 }
 ?>

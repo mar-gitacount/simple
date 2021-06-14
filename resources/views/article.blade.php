@@ -22,6 +22,15 @@
                                 <textarea class="form-control" rows="5" cols="100" name="article" name="contents" id="message" style="resize:none"></textarea>
                                 <textarea class="form-control"  rows="10" cols="30" name="article_text" name="contents" id="text" ></textarea>                         
                             </div>
+                            @inject('gunle', 'App\developer_functions\Article_functions')
+                            <div class="col-sm-6"> 
+                                <select name="gunle_num" id="">
+                                    <option value="0">{{$gunle -> gunle(0)}}</option>
+                                    <option value="1">{{$gunle -> gunle(1)}}</option>
+                                    <option value="2">{{$gunle -> gunle(2)}}</option>
+                                    <option value="3">{{$gunle -> gunle(3)}}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">

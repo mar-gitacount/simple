@@ -31,6 +31,7 @@ class ArticleController extends Controller
         /** 
         * バリデーションを設定する。
         */
+        
         $validator = Validator::make($request->all(), [
             /* 入力必須255文字 form のarticleのバリデーションチェック*/
             'article' => 'required|max:100',
@@ -63,7 +64,11 @@ class ArticleController extends Controller
     /*  Storage::put($blade_file_name, $blade_text);
         Storage::move($blade_file_name, './public/user_articles/'.$article->user_id.'/'.$blade_file_name); */ 
         /* 投稿タイトルをarticleカラムに保存する */
-        $article->article = $request->article;
+        $article -> article = $request->article;
+        $gunle_num = $request -> gunle_num;
+        $gunle_num = (int)$gunle_num;
+        //ジャンルの数字をarticleテーブルのgunle_numに保存する。
+        /* $article -> gunle_num = $gunle_num */
         /**
          * ブレードファイルの修正後試してみる
          * $create_time = Article_functions::timezone_ja();

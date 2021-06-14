@@ -16,6 +16,15 @@
                             <i class="fa fa-plus"></i>記事を更新する。
                         </button>
                     </div>
+                    @inject('gunle', 'App\developer_functions\Article_functions')
+                    <div class="col-sm-6"> 
+                        <select name="gunle_num" id="">
+                            <option value="0">{{$gunle -> gunle(0)}}</option>
+                            <option value="1">{{$gunle -> gunle(1)}}</option>
+                            <option value="2">{{$gunle -> gunle(2)}}</option>
+                            <option value="3">{{$gunle -> gunle(3)}}</option>
+                        </select>
+                    </div>
                 </div>
             </footer>
         </form>

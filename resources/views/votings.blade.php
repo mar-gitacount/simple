@@ -20,8 +20,8 @@
                     {{-- ジャンル事に表示する --}}
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 0])}}">{{$gunle -> gunle(0)}}</a></div>
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(1)}}</a></div>
-                    <div class=""><a>{{$gunle -> gunle(2)}}</a></div>
-                    <div class=""><a>{{$gunle -> gunle(3)}}</a></div>
+                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(2)}}</a></div>
+                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(3)}}</a></div>
                 </div>
             </div>
             <div class="panel-body">

@@ -68,7 +68,7 @@ class ArticleController extends Controller
         $gunle_num = $request -> gunle_num;
         $gunle_num = (int)$gunle_num;
         //ジャンルの数字をarticleテーブルのgunle_numに保存する。
-        /* $article -> gunle_num = $gunle_num */
+        $article -> gunle_number = $gunle_num;
         /**
          * ブレードファイルの修正後試してみる
          * $create_time = Article_functions::timezone_ja();
@@ -125,6 +125,10 @@ class ArticleController extends Controller
         */
         $article = Article::find($request->id);
         $article_id = $article->id;
+        $gunle_num = $request -> gunle_num;
+        $gunle_num = (int)$gunle_num;
+        //ジャンルの数字をarticleテーブルのgunle_numに保存する。
+        $article -> gunle_number = $gunle_num;
         $validator = Validator::make($request->all(), [
             'article' => 'required|max:100',
             //'article_text' => 'required|min:1'
@@ -153,14 +157,16 @@ class ArticleController extends Controller
             return redirect("/");
         }
         $article_query = Article::query();
-        $articles = Article::select(['article'])->get();
+        //$articles = Article::select(['article'])->get();
         //呼び出したいテーブルとそのカラムを引数に渡す。
-        $articles = Article_functions::replace($input,$article_query)->paginate(2);
+        $articles = Article_functions::replace($input,$article_query)->paginate(5);
         return view('votings', ['articles' => $articles]);
     }
     public function article_gunle_page_show(Request $request){
         $gunle = $request -> gunle_num;
-        return view("make");
+        $article_query = Article::query();
+        $articles_gunle = Article_functions::gunle_choice($gunle,$article_query)->paginate(5);
+        return view('votings', ['articles' => $articles_gunle]);
     }
     
 }

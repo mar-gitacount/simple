@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('article_title');
             $table->timestamps();
             //$table->integer('user_id')->unsigned()->default();
-	    $table->unsignedBigInteger('user_id')->unsigned()->default();
+            $table->unsignedBigInteger('user_id')->unsigned()->default();
             $table->foreign('user_id') 
             ->references('id') 
 	    ->on('users')
@@ -35,7 +35,6 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-       
         Schema::dropIfExists('articles');
 
     }

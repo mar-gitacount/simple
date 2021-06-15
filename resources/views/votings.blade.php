@@ -2,11 +2,6 @@
 @section('content')
 <div class="container">
     <div class="col-sm-offset-2 col-sm-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                以下記事一覧
-            </div>
-        </div>
         <!-- 記事一覧 -->
         <!-- 以下の変数を置き換える検索を押したらserch_resultにする -->
         @if (count($articles)>0)
@@ -20,8 +15,8 @@
                     {{-- ジャンル事に表示する --}}
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 0])}}">{{$gunle -> gunle(0)}}</a></div>
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(1)}}</a></div>
-                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(2)}}</a></div>
-                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(3)}}</a></div>
+                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 2])}}">{{$gunle -> gunle(2)}}</a></div>
+                    <div class=""><a href = "{{route('gunle', ['gunle_num' => 3])}}">{{$gunle -> gunle(3)}}</a></div>
                 </div>
             </div>
             <div class="panel-body">
@@ -29,13 +24,13 @@
                         <thead>
                         <th>記事</th>
                         <th>&nbsp;</th>
-                        <th>
+                        {{-- <th>
                         <form method="get" action="{{ route ('search')}}">
                         {{ csrf_field() }}
                         <input type="text" name="input" value="">
                         <input type="submit" value="検索">
                         </form>
-                        </th>
+                        </th> --}}
                         <th>&nbsp;</th>
                         </thead>
                         <tbody>

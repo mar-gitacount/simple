@@ -23,5 +23,14 @@ class Article_functions{
         $nowgunle = array("ゲーム,漫画","おもしろ","ニュース","IT・テクノロジー");
         return $nowgunle[$num];
     }
+    //ジャンル一覧テスト
+    public function gunletest(){
+
+        $nowgunles = array("ゲーム,漫画","おもしろ","ニュース","IT・テクノロジー");
+        dd($nowgunles);
+        return $nowgunles;
+       
+        
+    }
 }
 ?>

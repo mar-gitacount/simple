@@ -20,11 +20,7 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
             //$table->integer('user_id')->unsigned()->default();
             $table->unsignedBigInteger('user_id')->unsigned()->default();
-            $table->foreign('user_id') 
-            ->references('id') 
-	    ->on('users')
-	    ->onDelete('cascade');
-
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

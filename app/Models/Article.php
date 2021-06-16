@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-
-
-
     /**
      * 一対多の処理多側、articleの処理。
      * 

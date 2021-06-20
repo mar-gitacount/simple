@@ -12,7 +12,7 @@
             @inject('gunle', 'App\developer_functions\Article_functions')
             <div class="panel-heading">
                 <div class="gunle_wrap">
-                    {{-- ジャンル事に表示する --}}
+                    {{-- ジャンル事に表示する ['gunle_num' => 0]でルーティングに数字を渡している--}}
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 0])}}">{{$gunle -> gunle(0)}}</a></div>
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(1)}}</a></div>
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 2])}}">{{$gunle -> gunle(2)}}</a></div>
@@ -57,7 +57,7 @@
                                         　{{$string_mb_substr}}
                                         </a>
                                     </div>
-                                    </td>
+                                </td>
                                 <td class="table-text"><div class="table-text">{{ $article->user_id }}</div></td>
                                 <td class="table-text"><div class="table-text">{{ $article->id }}</div></td>
                             　  </tr>

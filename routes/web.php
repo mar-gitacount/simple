@@ -94,7 +94,12 @@ Route::delete('/home/article','App\Http\Controllers\ArticleController@delete')->
 /**article/{id}に接続したとき、ArticleControllerのshowメソッドを呼び出す。{id}のブレードファイルに接続する。*/
 Route::get('/articleview/{id}', [App\Http\Controllers\ArticleController::class, 'show'])->name('article_display');
 
+//掲示板をpost
+Route::post("/articleview/{article_id_number}", 'App\Http\Controllers\ArticleController@article_bulletin_comment')->name('article_bulletin_comment');
+//掲示板をgetして返信ボタンクリック⇨クリック時にidをルーティングに渡す。
+
+
 //検索結果を返すコントローラへのルーティング
 Route::get("/search",'App\Http\Controllers\ArticleController@article_search')->name('search');
-
+//ジャンル事のページ設定
 Route::get("/gunle/{gunle_num}",'App\Http\Controllers\ArticleController@article_gunle_page_show')->name('gunle');

@@ -168,6 +168,14 @@ class ArticleController extends Controller
         $articles_gunle = Article_functions::gunle_choice($gunle,$article_query)->paginate(5);
         return view('votings', ['articles' => $articles_gunle]);
     }
+    // 記事の掲示板の処理
+    public function article_bulletin_comment(Request $request, $article_id_number) {
+        // urlパラメータ(数字)
+        $current_article_id_number = (int)$article_id_number;
+        // 記事コメントに対しての掲示板コメントを設定
+        $commment = $request -> comment;
+        return redirect('articleview/'.$current_article_id_number);
+    }
     
 }
 

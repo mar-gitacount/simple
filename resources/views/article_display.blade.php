@@ -40,7 +40,7 @@
     <?php return; ?>
     <?php endif; ?>
     <?php include $path; ?>
-    @include('layouts.public_parts.article_bulletin_board')
+    @include('layouts.public_parts.article_bulletin_board',['article_id_number' => (int)$article_id])
 </article>
 <div class="user_status">
     <div class="article_make_user">このページ作成の作成者:{{$articleUser->name}}</div>

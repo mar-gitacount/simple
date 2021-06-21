@@ -50,6 +50,8 @@ class ArticleController extends Controller
          */     
         $article->user_id = $request->user()->id;
         $blade_text = $request->article_text;
+        $create_time = Article_functions::timezone_ja();
+        $article -> created_at = $create_time; 
         $past_articles = $request->user()->articles->first();
         if(!$past_articles == null){
             $past_articles = $past_articles->id;
@@ -139,8 +141,10 @@ class ArticleController extends Controller
                 ->withErrors($validator);    
         }
         $article_form =  $request -> article;
-        /* $create_time = Article_functions::timezone_ja();
-        $article -> created_at = $create_time; */
+
+        $create_time = Article_functions::timezone_ja();
+        $article -> created_at = $create_time; 
+
         $article -> article = $article_form;
         $article ->save();
         return redirect('home');

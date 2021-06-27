@@ -19,10 +19,16 @@ class Article_functions{
         return $quary;
     }
     //ジャンル一覧
-    public function gunle($num){
+    public function gunle_first($num){
         $nowgunle = array("ゲーム,漫画","おもしろ","ニュース","IT・テクノロジー");
         return $nowgunle[$num];
     }
+
+    public function gunle(){
+        $nowgunle = array("ゲーム,漫画","おもしろ","ニュース","IT・テクノロジー");
+        return $nowgunle;
+    }
+
     //ジャンル機能振り分け
     public static function gunle_choice($gunlenum,$query){
         $gunlenum = (int)$gunlenum;

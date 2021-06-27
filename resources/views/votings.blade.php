@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/top.css') }}">
+</head>
 <div class="container">
     <div class="col-sm-offset-2 col-sm-8">
         <!-- 記事一覧 -->
@@ -11,13 +14,21 @@
             </div>
             @inject('gunle', 'App\developer_functions\Article_functions')
             <div class="panel-heading">
-                <div class="gunle_wrap">
-                    {{-- ジャンル事に表示する ['gunle_num' => 0]でルーティングに数字を渡している--}}
+                {{-- <div class="gunle_wrap">
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 0])}}">{{$gunle -> gunle(0)}}</a></div>
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 1])}}">{{$gunle -> gunle(1)}}</a></div>
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 2])}}">{{$gunle -> gunle(2)}}</a></div>
                     <div class=""><a href = "{{route('gunle', ['gunle_num' => 3])}}">{{$gunle -> gunle(3)}}</a></div>
-                </div>
+                </div> --}}
+                    @inject('gunle', 'App\developer_functions\Article_functions')
+                    <div class="gunle_wrap"> 
+                        <?php
+                            $gunle = $gunle -> gunle();
+                        ?>
+                        <?php foreach ($gunle as $index => $item):?>
+                        <div class="gunle"><a href = "{{route('gunle', ['gunle_num' =>  $index  ])}}"><?php echo $item?></a></div> 
+                        <?php endforeach;?>
+                    </div>
             </div>
             <div class="panel-body">
                 <table class="table table-striped task-table">

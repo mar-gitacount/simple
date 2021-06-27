@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<head>
+{{-- <head>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/top.css') }}">
-</head>
+</head> --}}
 <div class="container">
     <div class="col-sm-offset-2 col-sm-8">
         <!-- 記事一覧 -->

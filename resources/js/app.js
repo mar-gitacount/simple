@@ -9,6 +9,8 @@ import 'bootstrap';
 window.Vue = require('vue')
 import { createApp } from 'vue'
 import '../../vendor/phpunit/php-code-coverage/src/Report/Html/Renderer/Template/js/bootstrap.min.js'
+import '../../vendor/phpunit/php-code-coverage/src/Report/Html/Renderer/Template/js/popper.min.js'
+import './module/jquery'
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

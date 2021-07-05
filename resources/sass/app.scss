@@ -8,4 +8,8 @@
 @import '~bootstrap/scss/bootstrap';
 
 //styles
-@import '../../vendor/phpunit/php-code-coverage/src/Report/Html/Renderer/Template/css/bootstrap.min.css'
+@import '../../vendor/phpunit/php-code-coverage/src/Report/Html/Renderer/Template/css/bootstrap.min.css';
+
+a {
+    text-decoration:none; 
+}

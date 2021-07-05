@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @extends('layouts.base')
-    @section('title', 'シンプル通信2')
+    @section('title', 'シンプル通信')
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="/js/app.js"></script> --}}

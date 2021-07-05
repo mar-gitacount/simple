@@ -29,6 +29,9 @@
                         <div class="gunle"><a href = "{{route('gunle', ['gunle_num' =>  $index  ])}}"><?php echo $item?></a></div> 
                         <?php endforeach;?>
                     </div>
+                    <div id="app">
+                        <example-component></example-component>
+                    </div>
             </div>
             <div class="panel-body">
                 <table class="table table-striped task-table">

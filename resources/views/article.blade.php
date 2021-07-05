@@ -6,12 +6,12 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 @include('common.errors')
-                <form action="post">
+                {{-- <form action="post">
                     @csrf
                     <label for="task-name" class="col-sm-3 control-label">記事を以下に書く</label>
                     <input type="file" accept=".jpg,.jpeg,.png,.gif" value="初期値"  id="file" name ="file" class="form-control">
                     <button type="submit">アップロード</button>
-                </form>
+                </form> --}}
                 <form action = "{{ route('articlepost')}}"  method="POST" class="form-horizontal">
                     {{ csrf_field() }}
                     <div class="form-group">                   
@@ -57,43 +57,6 @@
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script>
-        window.addEventListener('load',function(){
-            /** 
-             *pictureボタンを押下した時にイベント発生する。
-             * 画像ファイルを開かせる。 
-            */
-            document.getElementById("file").addEventListener('click',logPosition);
-        });
-
-
-        function logPosition(event){         
-            alert("helo");
-            var textarea = document.getElementById('message');
-            //textareaでカーソルの位置を取得している。
-            var textarea = textarea.selectionStart;
-            //以下でファイル取得されたときの処理。idはfile
-            $("#file").on("change",function(){
-                //ファイルオブジェクトを格納している。
-                //ファイル選択後に以下の処理が走る。
-                //とりあえずカーソルの場所に「テスト」という文字列をいれられるかチェック。textarea.inner.textで入れてみる。
-                alert('here');
-                const files = $("#file")[0].files;
-                const file = files[0];
-                const filename = file.name;
-                console.log(`選択された:${filename}`);
-                alert(textarea);
-                /** 
-                *inner.htmlでimageタグをいれるfilenameもリネームする。
-                *  
-                */
-            });
-            //alert(textarea.selectionEnd);
-           //alert("screenX:" + event.screenX);
-           //alert("screenY" + event.screenY);
-        }
-    </script>
 </div>
 
 @endsection

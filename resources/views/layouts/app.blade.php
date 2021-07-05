@@ -8,13 +8,13 @@
     @extends('layouts.base')
     @section('title', 'シンプル通信2')
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="/js/app.js"></script> --}}
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{-- <link rel="shortcut icon" href="{{ asset('/storage/sibadog16.ico') }}" > --}}
     @yield('css')
     
